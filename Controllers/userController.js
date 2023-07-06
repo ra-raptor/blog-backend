@@ -36,6 +36,7 @@ export const userLogin = async (req, res) => {
                         
                     }).json({
                         success : true,
+                        _id : currUser._id
                     })
                 }else{
                     res.json({
@@ -92,6 +93,7 @@ export const userSignup = async (req, res) => {
                     secure : true,
                 }).json({
                     success : true,
+                    _id : newUser._id
                 })
             }
         })
