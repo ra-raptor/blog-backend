@@ -53,6 +53,7 @@ export const viewBlog = async(req,res) => {
             success : true,
             blog : blog,
             authorDetails : {
+                id : blog.author,
                 fname,lname,email
             }
         })
