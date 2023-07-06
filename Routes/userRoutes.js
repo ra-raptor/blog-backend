@@ -14,6 +14,14 @@ router.post("/login", userLogin)
 
 router.post("/signup", userSignup)
 
-router.get("/",checkAuth, userDetails)
+router.get("/me", checkAuth, (req,res) => {
+    const {_id} = req.currUser
+    res.json({
+        success : true,
+        _id
+    })
+})
+
+router.get("/:id", userDetails)
 
 export default router;

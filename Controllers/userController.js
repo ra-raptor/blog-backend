@@ -99,21 +99,59 @@ export const userSignup = async (req, res) => {
 }
 
 export const userDetails = async (req, res) => {
-    const {email,fname,lname,dob,doc} = req.currUser;
-    const blogCount = await Blog.countDocuments({author : req.currUser._id})
-    const likeCount = await Blog.aggregate([{$match : {author : req.currUser._id}},{$group : {_id : null, total : {$sum : "$like"}}}])
-    const viewCount = await Blog.aggregate([{$match : {author : req.currUser._id}},{$group : {_id : null, total : {$sum : "$views"}}}])
+    try{
+        const reqid = await User.find({_id :req.params.id})
+        if(reqid.length === 0 ){
+            res.status(404).json({
+                success : false,
+                message : "User not found"
+            })
+            }else{
+                const {_id,email,fname,lname,dob,doc} = reqid[0];
+                const blogCount = await Blog.countDocuments({author : req.params.id})
+                const temp = await Blog.find({author : req.params.id}).select('views')
+                const blogs = await Blog.find({author : req.params.id})
+                let viewCount = 0
+                temp.forEach((item) => {
+                    viewCount += item.views
+                }) 
+                res.json({
+                    success : true,
+                    user : {
+                        _id,email, fname,lname,dob,doc,blogCount,viewCount
+                    }
+                    ,blogs
+                    // blogs : temp
+                })
+        }
+    }catch(err){
+        res.status(500).json({
+            success : false,
+            message : "Server Error"
+        })
+    }
+    
+  
+    
+}
+    //     
+    //     console.log(sum);
+    //  res.json({
+    //     success : true,
+    //      users : {
+    //         email, fname,lname,dob,doc,blogCount,
+    //         viewCount : sum
+    //      }
+    // })
+    
+
+
+
+ 
+    
    
     
-    // number of blogs 
+    // number of blog
     // number of views
     // number of likes
-    res.json({
-        success : true,
-         users : {
-            email, fname,lname,dob,doc,blogCount,
-            likeCount : likeCount.length === 0 ? 0 : likeCount[0].total,
-            viewCount : viewCount.length === 0 ? 0 : viewCount[0].total
-         }
-    })
-}
+
