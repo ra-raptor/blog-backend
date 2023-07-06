@@ -6,7 +6,7 @@ const router = Router();
 import cors from 'cors'
 router.use(express.json());
 router.use(cookieParser());
-router.use(cors())
+router.use(cors({credentials: true}))
 
 router.get("/logout", checkAuth, userLogout)
 

@@ -5,7 +5,7 @@ import { createBlog,deleteBlog,updateBlog, viewBlog,blogList, likeBlog,visitBlog
 const router = Router()
 import cors from 'cors'
 router.use(cookieParser())
-router.use(cors())
+router.use(cors({credentials: true}))
 
 router.route('/').post(checkAuth, createBlog).get(blogList)
 
