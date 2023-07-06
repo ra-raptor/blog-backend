@@ -30,7 +30,10 @@ export const userLogin = async (req, res) => {
                     const token = jwt.sign({_id : currUser._id}, process.env.JWTSECRET, {expiresIn : "1d"})
                     res.cookie("user", token, {
                         maxAge : 1000*60*60*24*30,
-                        httpOnly : true
+                        httpOnly : true,
+                        sameSite : "none",
+                        secure : true,
+                        
                     }).json({
                         success : true,
                     })
@@ -84,7 +87,9 @@ export const userSignup = async (req, res) => {
                 //console.log(salt , hash);
                 res.cookie("user", token, {
                     maxAge : 1000*60*60*24*30,
-                    httpOnly : true
+                    httpOnly : true,
+                    sameSite : "none",
+                    secure : true,
                 }).json({
                     success : true,
                 })
