@@ -12,7 +12,7 @@ router.route('/').post(checkAuth, createBlog).get(blogList)
 router.put('/like/:id', checkAuth, likeBlog)
 router.put('/view/:id', visitBlog)
 
-router.route('/:id').get(viewBlog).put(checkAuth, updateBlog).delete(checkAuth, deleteBlog)
+router.route('/:id').get(viewBlog).put( updateBlog).delete( deleteBlog)
 
 
 export default router;
