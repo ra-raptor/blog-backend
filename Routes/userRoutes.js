@@ -6,7 +6,10 @@ const router = Router();
 import cors from 'cors'
 router.use(express.json());
 router.use(cookieParser());
-router.use(cors({credentials: true}))
+app.use(cors({
+    origin: ['https://shayrana.netlify.app', 'http://localhost:3000'],
+    credentials: true
+  }));
 
 router.get("/logout", checkAuth, userLogout)
 

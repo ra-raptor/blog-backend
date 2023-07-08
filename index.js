@@ -12,7 +12,10 @@ dotenv.config()
 const port = 5000
 
 app.use(express.json())
-app.use(cors({credentials: true}))
+app.use(cors({
+    origin: ['https://shayrana.netlify.app', 'http://localhost:3000'],
+    credentials: true
+  }));
 
 const catHelper = async (all_cat) => {
     const catList = []

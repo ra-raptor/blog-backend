@@ -5,7 +5,10 @@ import { createBlog,deleteBlog,updateBlog, viewBlog,blogList, likeBlog,visitBlog
 const router = Router()
 import cors from 'cors'
 router.use(cookieParser())
-router.use(cors({credentials: true}))
+app.use(cors({
+    origin: ['https://shayrana.netlify.app', 'http://localhost:3000'],
+    credentials: true
+  }));
 
 router.route('/').post(checkAuth, createBlog).get(blogList)
 
