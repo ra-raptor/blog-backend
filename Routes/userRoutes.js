@@ -6,7 +6,7 @@ const router = Router();
 import cors from 'cors'
 router.use(express.json());
 router.use(cookieParser());
-app.use(cors({
+router.use(cors({
     origin: ['https://shayrana.netlify.app', 'http://localhost:3000'],
     credentials: true
   }));
