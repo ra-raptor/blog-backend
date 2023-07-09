@@ -4,7 +4,7 @@ import User from "../Models/user.js";
 import category from "../Models/category.js";
 
 export const createBlog = async (req, res) => {
-	const { title, text, image, categories } = req.body;
+	const { title, text, image, categories, userid } = req.body;
 	let category = await categoryHelper(categories);
 	try {
 		const newBlog = await Blog.create({
@@ -15,7 +15,7 @@ export const createBlog = async (req, res) => {
 			views: 0,
 			time: new Date(Date.now()),
 			categories: category,
-			author: req.currUser._id,
+			author: userid,
 		});
 		res.json({
 			success: true,
